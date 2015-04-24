@@ -16,7 +16,7 @@
 					</div><!-- /.navbar-header -->
 					<div class="navbrand-nav-social">
 						<?php
-						 $logo = mtm_get_option("mtm_logo");
+						 $logo = mtm_get_admin_option("mtm_logo");
 						 if(empty($logo)) {
 							$logo = MTM()->get_url() . "images/logo.png";
 						 }
@@ -24,7 +24,7 @@
 						<a class="navbar-brand" href="<?php echo home_url('/'); ?>"><img src="<?php echo $logo; ?>" alt="<?php echo get_bloginfo("name"); ?>" /></a>
 						<nav class="main-navigation" role="navigation">
 							<?php 
-							$mtm_menu = mtm_get_option("mtm_menu");
+							$mtm_menu = mtm_get_admin_option("mtm_menu");
 							$menu_terms = get_terms( 'nav_menu', array( 'hide_empty' => true ));
 							if ( !empty($menu_terms) ) :
 								  wp_nav_menu(array(
@@ -40,13 +40,13 @@
 							?>						
 						</nav><!-- /.main-navigation -->
 						
-						<ul class="social-icons clearfix hidden-xs hidden-sm">
+						<ul class="social-icons hidden-xs hidden-sm">
 							<?php
-							$facebook  = mtm_get_option_def("mtm_facebook_url");
-							$twitter = mtm_get_option_def("mtm_twitter_url");
-							$pinterest = mtm_get_option_def("mtm_pinterest_url"); 
-							$instagram = mtm_get_option_def("mtm_instagram_url");
-							$googleplus = mtm_get_option_def("mtm_googleplus_url");
+							$facebook  = mtm_get_admin_option("mtm_facebook_url");
+							$twitter = mtm_get_admin_option("mtm_twitter_url");
+							$pinterest = mtm_get_admin_option("mtm_pinterest_url"); 
+							$instagram = mtm_get_admin_option("mtm_instagram_url");
+							$googleplus = mtm_get_admin_option("mtm_googleplus_url");
 							?>
 							<?php if(!empty($facebook)) { ?>
 							<li>

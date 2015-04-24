@@ -90,7 +90,7 @@ class NavWalker extends \Walker_Nav_Menu {
 		
 		$this->see_all = '<div class="see-all clearfix">';
 		if ($this->mtm_tax){
-			$see_all_option = mtm_get_option_def("mtm_article_see_all");
+			$see_all_option = mtm_get_admin_option("mtm_article_see_all");
 			if(!$see_all_option) {
 				$this->see_all .= $this->_add_see_all_link($item);
 			}
@@ -157,7 +157,7 @@ class NavWalker extends \Walker_Nav_Menu {
 	}
 	
 	function check_set_menu() {
-		if(!mtm_get_option_def("mtm_menu")) {
+		if(!mtm_get_admin_option("mtm_menu")) {
 			return "<h2>Please select a menu in Admin -> Mega Taxonomy Menu -> \"Select a menu\" and then save options.</h2>";
 		} else {
 			return "";

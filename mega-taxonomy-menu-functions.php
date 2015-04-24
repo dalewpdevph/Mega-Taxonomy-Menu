@@ -24,13 +24,21 @@ function mtm_get_template_part( $slug, $name = '' ) {
 		load_template( $template, false );
 }
 
-function mtm_get_option_def($key) {
+
+function mtm_get_admin_option($key)
+{
 	$def = MTM()->option_defaults();
-	$option = mtm_get_option($key);
-	if(empty($option)) {
-		return $def[$key];
+	$options = get_option('mtm_menu_options');
+	
+	if(empty($options[$key])) {
+		if(empty($def[$key])) {
+			return '';
+		} else {
+			return $def[$key];
+		}
 	} else {
-		return $option;
+		
+		return $options[$key];
 	}
 }
 ?>

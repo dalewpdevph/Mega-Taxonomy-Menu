@@ -10,7 +10,8 @@
 */
 
 require("mega-taxonomy-menu-functions.php");
-require("admin/mega-taxonomy-menu-options.php");
+
+require("admin/mega-taxonomy-menu-options-settings.php");
 require("lib/NavWalker.php");
 require("lib/NavObjects.php");
 require("lib/CssOverride.php");
@@ -18,7 +19,7 @@ require("lib/CssOverride.php");
 class MegaTaxonomyMenu {
 
 	protected static $_instance = null;
-	
+	private $adminSlug = 'mtm-menu-options';
 	function __construct() {
 		add_action( 'wp_enqueue_scripts', array($this,'front_scripts') );
 		add_action( 'admin_enqueue_scripts', array($this,'admin_scripts') );
@@ -49,11 +50,11 @@ class MegaTaxonomyMenu {
 		
 		$def = $this->option_defaults();
 		
-		$column = mtm_get_option_def("mtm_column");
-		$lwd = mtm_get_option_def("mtm_article_width");
-		$max_width = mtm_get_option_def("mtm_width");
-		$position = mtm_get_option_def("mtm_menu_position");
-		$minutes = mtm_get_option_def("mtm_localstorage_minutes");
+		$column = mtm_get_admin_option("mtm_column");
+		$lwd = mtm_get_admin_option("mtm_article_width");
+		$max_width = mtm_get_admin_option("mtm_width");
+		$position = mtm_get_admin_option("mtm_menu_position");
+		$minutes = mtm_get_admin_option("mtm_localstorage_minutes");
 		
 		wp_enqueue_script( 'mtm-front-script',  $this->get_url() . 'js/mtm.js', array("mtm-jstorage"), '1.0.0');
 		wp_localize_script('mtm-front-script', 'mtm_column', 
@@ -65,7 +66,7 @@ class MegaTaxonomyMenu {
 	
 	function admin_scripts() {	
 		$screen = get_current_screen();
-		if($screen->base == "post" || (isset($_GET['page']) && $_GET['page'] == "mtm-options-framework") || $screen->base == "edit") {
+		if($screen->base == "post" || (isset($_GET['page']) && $_GET['page'] == $this->adminSlug) || $screen->base == "edit") {
 			wp_enqueue_script( 'mtm-jstorage',  $this->get_url() . '/js/jstorage.js', array("jquery"), '1.0.0');		
 		}
 		
@@ -96,7 +97,7 @@ class MegaTaxonomyMenu {
 	function admin_footer() {
 
 		?>
-		<?php if(isset($_GET['page']) && $_GET['page'] == "mtm-options-framework") { ?>
+		<?php if(isset($_GET['page']) && $_GET['page'] == $this->adminSlug) { ?>
 			<script type="text/javascript">
 				var ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";
 				jQuery("#mtm_clear_link").click(function(e) {
@@ -136,6 +137,7 @@ class MegaTaxonomyMenu {
 	
 	function option_defaults() {
 		$options = array();
+		$options['mtm_logo'] = $this->get_url() . "images/logo.png";
 		$options['mtm_menu'] = false;
 		$options['mtm_menu_position'] = "fixed";
 		$options['mtm_primary_color'] = "#00aeef";

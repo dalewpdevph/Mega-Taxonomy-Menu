@@ -9,8 +9,8 @@ class MegaNavObjects {
 	function __construct($menu_id) {
 		$this->hours = 3600 * 5; // remove transient every 5 hours
 	
-		$this->menu_id = mtm_get_option_def("mtm_menu");
-		$this->column = mtm_get_option_def("mtm_column");
+		$this->menu_id = mtm_get_admin_option("mtm_menu");
+		$this->column = mtm_get_admin_option("mtm_column");
 		if(isset($_GET['clear_mam'])) {			
 			delete_transient( 'mam_menu_objects' );
 		}
@@ -61,7 +61,7 @@ class MegaNavObjects {
 				$post_id = $item;
 				$r_items[$post_id]['url'] = get_permalink($post_id);
 				$r_items[$post_id]['title'] = get_the_title($post_id);
-				$image_size = mtm_get_option_def("mtm_article_image_size");
+				$image_size = mtm_get_admin_option("mtm_article_image_size");
 				$post_thumbnail_id = get_post_thumbnail_id( $post_id );
 				
 				$image_attributes = wp_get_attachment_image_src( $post_thumbnail_id, $image_size );	

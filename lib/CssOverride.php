@@ -2,30 +2,30 @@
 	
 function mtm_css_override() {
 	
-	$menu_position = mtm_get_option_def("mtm_menu_position");
-	$primary_color = mtm_get_option_def("mtm_primary_color");
-	$secondary_color = mtm_get_option_def("mtm_secondary_color");
-	$tertiary_color = mtm_get_option_def("mtm_tertiary_color");
-	$max_width = mtm_get_option_def("mtm_width") . "px";
-	$height = mtm_get_option_def("mtm_height");
-	$heightpx = mtm_get_option_def("mtm_height") . "px";
+	$menu_position = mtm_get_admin_option("mtm_menu_position");
+	$primary_color = mtm_get_admin_option("mtm_primary_color");
+	$secondary_color = mtm_get_admin_option("mtm_secondary_color");
+	$tertiary_color = mtm_get_admin_option("mtm_tertiary_color");
+	$max_width = mtm_get_admin_option("mtm_width") . "px";
+	$height = mtm_get_admin_option("mtm_height");
+	$heightpx = mtm_get_admin_option("mtm_height") . "px";
 	$mam_top = round($height * .14);
 	$li_top = round($height * .15);
 	$li_bottom = round($height *.28);
 	$max_logo_width = round($height * 3);
-	$font_array = mtm_get_option_def("mtm_typography");
 	
-	$font_size = $font_array['size'];	
+	
+	$font_size = mtm_get_admin_option('mtm_font_size');	
 	$font_size_icon = round($font_size * 1.5);
 	$font_size_iconpx = $font_size_icon . "px";
-	$font_face = $font_array['face'];
-	$font_color = $font_array['color'];
+	$font_face = mtm_get_admin_option('mtm_font_family');
+	$font_color = mtm_get_admin_option('mtm_font_color');
 	
-	$article_color = mtm_get_option_def("mtm_article_color");
+	$article_color = mtm_get_admin_option("mtm_article_color");
 	
 	$gutter = 20;
-	$custom_css = mtm_get_option_def("mtm_custom_css");
-	$image_crop_height = mtm_get_option_def("mtm_article_image_crop_height");
+
+	$image_crop_height = mtm_get_admin_option("mtm_article_image_crop_height");
 	?>
 	<style type="text/css">
 		
@@ -44,7 +44,7 @@ function mtm_css_override() {
 		}
 		
 		.mtm-header .mtm-main-header a {
-			font-size: <?php echo $font_size; ?>;
+			font-size: <?php echo $font_size; ?>px;
 		}
 		
 		.mtm-header .mtm-main-header i {
@@ -56,15 +56,16 @@ function mtm_css_override() {
 		}
 		
 		.mtm-header .mtm-main-header .icon-arrow-down {
-			font-size: <?php echo $font_size; ?>;
+			font-size: <?php echo $font_size; ?>px;
 		}
 		
 		.mtm-header .mtm-main-header .sub-menu {
 			background-color: <?php echo $secondary_color; ?>;
+			top: <?php echo $heightpx; ?>;
 		}
 		
 		.mtm-header .mtm-main-header .sub-menu a {
-			color: <?php echo $primary_color; ?>;
+			color: <?php echo $primary_color; ?>px;
 		}
 		
 		.mtm-header .mtm-main-header li:hover .sub-menu-inner .nav-posts a {
@@ -201,7 +202,7 @@ function mtm_css_override() {
 			padding: 0 <?php echo ($gutter/2); ?>px;
 		}
 		<?php } ?>
-		<?php if(!empty($custom_css)) echo $custom_css; ?>
+		
 	</style>
 	<?php
 }	
